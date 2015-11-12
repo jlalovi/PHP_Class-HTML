@@ -855,10 +855,16 @@
 			if ($name!="") $atributos.= "name='$name' ";
 			if ($value!="") $atributos.= "value='$value' ";
 				
-			if ($label)
-				return "<label>$contenido_label<input $atributos/></label>"."\n";
-			else
-				return "<input $atributos/>"."\n";
+			if (($type=="radio" || $type=="checkbox") && $label) {
+				return "<label><input $atributos/>$contenido_label</label>"."\n";
+			}
+			else {
+				if ($label)
+					return "<label>$contenido_label<input $atributos/></label>"."\n";
+				else
+					return "<input $atributos/>"."\n";
+			}
+			
 		}
 		
 		/**
@@ -891,14 +897,17 @@
 		 * Etiqueta de &lt;select>&lt;/select> (con opciones)
 		 * 
 		 * @param number $tabs -> Número de tabulaciones de la etiqueta select para sangrar las opciones.
-		 * @param unknown $lista -> Array asociativo con los valores y texto de las opciones.
+		 * @param array $lista -> Array asociativo con los valores y texto de las opciones.
+		 * @param string $name -> Asigna un nombre al control (es imprescindible para que el servidor pueda procesar el formulario).
 		 * @param number $select -> Opción que estará seleccionada por defecto.
 		 * @param string $class
 		 * @param string $id
 		 * @param string $otros_atributos
 		 */
-		public static function select($tabs=0, $lista=["valor"=>"texto"], $select=1, $class="", $id="", $otros_atributos="") {	
+		public static function select($tabs=0, $lista=["valor"=>"texto"], $name="", $select=1, $class="", $id="", $otros_atributos="") {	
 			$atributos = Html::atributosComunes($class, $id, $otros_atributos);
+			if ($name!="") $atributos.= "name='$name' ";
+			
 			$opciones = "";
 			$c=0;
 			$tab = Self::tab($tabs);
