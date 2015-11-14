@@ -870,6 +870,7 @@
 		/**
 		 * Etiqueta de &lt;textarea>&lt;/textarea>
 		 * 
+		 * @param string $contenido
 		 * @param string $placeholder -> Texto que aparece dentro del 'textarea' antes de seleccionarlo.
 		 * @param string $name -> Asigna un nombre al control (es imprescindible para que el servidor pueda procesar el formulario).
 		 * @param string $id -> Imprescindible si la etiqueta label se hace por separado, ya que es el valor asociado al 'for'
@@ -881,16 +882,16 @@
 		 * 										<li>rows = "numero": Número de filas de texto que mostrará el textarea.
 		 * 										<li>cols = "numero": Número de caracteres que se muestran en cada fila del textarea.
 		 */
-		public static function textarea($placeholder="Escribe texto aquí...", $name="", $id="", $label=false, $contenido_label="", $class="", $otros_atributos="") {
+		public static function textarea($contenido="", $placeholder="Escribe texto aquí...", $name="", $id="", $label=false, $contenido_label="", $class="", $otros_atributos="") {
 			$atributos = Html::atributosComunes($class, $id, $otros_atributos);
 
 			if ($name!="") $atributos.= "name='$name' ";
 			if ($placeholder!="") $atributos.= "placeholder='$placeholder' ";
 		
 			if ($label)
-				return "<label>$contenido_label<br/><textarea $atributos></textarea></label>"."\n";
+				return "<label>$contenido_label<br/><textarea $atributos>$contenido</textarea></label>"."\n";
 			else
-				return "<textarea $atributos></textarea>"."\n";
+				return "<textarea $atributos>$contenido</textarea>"."\n";
 		}
 		
 		/**
